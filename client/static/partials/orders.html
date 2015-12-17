@@ -1,0 +1,71 @@
+<div class="col-md-10">
+  <h2>Add a New Order</h2>
+  <p class="alert alert-danger" ng-show="warning">{{warning}}</p>
+  <form name="myForm" novalidate>
+    <div ng-messages="myForm.myCustomer.$error" ng-if="submitted" style="color:red" role="alert">
+      <div ng-message="required">Please enter customer name</div>
+    </div>
+    <div class="form-group">
+      <label>Customer</label>
+      <select name="myCustomer" ng-model="new_order.customer_id" required>
+        <option ng-repeat="customer in customers"  value="{{customer._id}}">{{customer.name}}</option>
+      </select>
+    </div>
+
+    <div ng-messages="myForm.myProduct.$error" ng-if="submitted" style="color:red" role="alert">
+      <div ng-message="required">Please enter product name</div>
+    </div>
+    <div class="form-group">
+      <label>Product</label>
+      <select name="myProduct" ng-model="new_order.product_id" required>
+        <option ng-repeat="product in products" value="{{product._id}}">{{product.name}}</option>
+      </select>
+    </div>
+
+    <div ng-messages="myForm.myQty.$error" ng-if="submitted" style="color:red" role="alert">
+      <div ng-message="required">Please enter product quantity</div>
+    </div>
+    <div class="form-group">
+      <label>Quantity</label>
+      <select name="myQty" ng-model="new_order.qty" required>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" ng-click="addOrder()">Place Order</button>
+  </form>
+</div>
+
+<div class="show-orders">
+  <input type="text" ng-model="filter_name" placeholder="Search name">
+  <table class="table table-hover">
+    <thead>
+      <tr class="active">
+        <th>Customer Name</th>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="order in orders | filter: filter_name">
+        <td>{{order.customer.name}}</td>
+        <td>{{order.product.name}}</td>
+        <td>{{order.qty}}</td>
+        <td>{{order.ordered_at | date: 'medium'}}</td>
+        <td>
+          <button class="btn btn-danger btn-xs" ng-click="deleteOrder(order)">Delete order</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,34 @@
+<div ng-controller = "dashboardController">
+
+  <div class="row md-col-10">
+  <div id="search" class="col-md-2"><input type="text" ng-model="filter_name" placeholder="Search name"></div>
+  <div class="show-product">
+    <h1 id="dashboard-title">MEAN Mini Store</h1>
+    <div ng-repeat="product in products  | filter: filter_name" class="col-md-3 show-products">
+      <img class="thumbnail responsive" ng-src="{{product.img}}">
+      <h3>{{product.name}}</h3>
+      <p>Quantity Available: {{product.qty}}</p>
+    </div>
+  </div>
+  </div>
+
+  <!-- <div class="row"> -->
+  <div class="show-orders md-col-12">
+  <h2>Recent orders</h2>
+    <ul ng-repeat="order in orders | filter: filter_name">
+      <li>{{order.customer.name}} purchased {{order.qty}} {{order.product.name}} <span am-time-ago="order.ordered_at"></span>.</li>
+    </ul>
+  </div>
+  <!-- </div> -->
+
+  <!-- <div class="row"> -->
+  <!-- <div class="show-orders md-col-12"> -->
+  <div class="show-customers">
+    <h2>New Customers</h2>
+    <ul ng-repeat="customer in customers | filter: filter_name">
+      <li>{{customer.name}} joined the Store <span am-time-ago="customer.created_at"></span>.</li>
+    </ul>
+  </div>
+  </div>
+<!-- </div> -->
+</div>
